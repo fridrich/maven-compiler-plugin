@@ -1237,9 +1237,12 @@ public abstract class AbstractCompilerMojo implements Mojo {
          * the fully formatted option (e.g. "-g:vars,lines") that we provided to it.
          */
         final var configuration = new Options(compiler, logger);
-        configuration.addIfNonBlank("--source", getSource());
-        targetOrReleaseSet = configuration.addIfNonBlank("--target", getTarget());
-        targetOrReleaseSet |= configuration.setRelease(getRelease());
+        targetOrReleaseSet = configuration.setRelease(getRelease());
+        if (!targetOrReleaseSet) {
+            configuration.addIfNonBlank("--source", getSource());
+            targetOrReleaseSet = configuration.addIfNonBlank("--target", getTarget());
+        }
+
         configuration.addIfTrue("--enable-preview", enablePreview);
         configuration.addComaSeparated("-proc", proc, List.of("none", "only", "full"), null);
         if (annotationProcessors != null) {
