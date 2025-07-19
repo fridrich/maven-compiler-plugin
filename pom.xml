@@ -186,6 +186,8 @@ under the License.
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
           <configuration>
+            <source />
+            <target />
             <release>${javaVersion}</release>
           </configuration>
         </plugin>
